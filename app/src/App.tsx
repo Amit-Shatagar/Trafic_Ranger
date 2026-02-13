@@ -12,6 +12,7 @@ import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { Dialog, DialogContent } from '@/components/ui/dialog'
 import './App.css'
 
 // Feature data
@@ -144,6 +145,8 @@ function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [activeTab, setActiveTab] = useState("features")
   const [scrolled, setScrolled] = useState(false)
+  const [showDemoModal, setShowDemoModal] = useState(false)
+  const [showContactModal, setShowContactModal] = useState(false)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -262,11 +265,11 @@ function App() {
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
-              <Button size="lg" className="bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-lg px-8">
+              <Button size="lg" className="bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-lg px-8" onClick={() => scrollToSection('features')}>
                 Explore Features
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Button>
-              <Button size="lg" variant="outline" className="border-slate-600 text-slate-300 hover:bg-slate-800 text-lg px-8">
+              <Button size="lg" variant="outline" className="border-slate-600 text-slate-300 hover:bg-slate-800 text-lg px-8" onClick={() => setShowDemoModal(true)}>
                 <Play className="mr-2 w-5 h-5" />
                 Watch Demo
               </Button>
@@ -654,7 +657,7 @@ function App() {
               Schedule a Demo
               <ArrowRight className="ml-2 w-5 h-5" />
             </Button>
-            <Button size="lg" variant="outline" className="border-slate-600 text-slate-300 hover:bg-slate-800 text-lg px-8">
+            <Button size="lg" variant="outline" className="border-slate-600 text-slate-300 hover:bg-slate-800 text-lg px-8" onClick={() => setShowContactModal(true)}>
               <Phone className="mr-2 w-5 h-5" />
               Contact Sales
             </Button>
@@ -721,6 +724,128 @@ function App() {
           </div>
         </div>
       </footer>
+
+      {/* Demo Modal */}
+      <Dialog open={showDemoModal} onOpenChange={setShowDemoModal}>
+        <DialogContent className="max-w-2xl bg-slate-900 border-slate-800">
+          <div className="flex flex-col items-center justify-center py-16 px-6">
+            <div className="mb-6">
+              <AlertTriangle className="w-24 h-24 text-amber-500 opacity-80" />
+            </div>
+            <h2 className="text-2xl font-bold text-white mb-4 text-center">Demo Video Unavailable</h2>
+            <p className="text-slate-300 text-center mb-6 text-lg">
+              The demo video has been deleted by the user.
+            </p>
+            <div className="bg-slate-800/50 rounded-lg p-6 mb-6 border border-slate-700 max-w-md w-full">
+              <p className="text-slate-300 text-center mb-6 font-semibold text-cyan-400">
+                Contact the Owner to Request Access
+              </p>
+              <div className="space-y-4">
+                <div className="flex items-start gap-3">
+                  <span className="font-semibold text-slate-300 min-w-20">Name:</span>
+                  <span className="text-slate-200">Amit Shetty</span>
+                </div>
+                <div className="flex items-start gap-3">
+                  <span className="font-semibold text-slate-300 min-w-20">Email:</span>
+                  <a href="mailto:shatagaramit6@gmail.com" className="text-cyan-400 hover:text-cyan-300">
+                    shatagaramit6@gmail.com
+                  </a>
+                </div>
+                <div className="flex items-start gap-3">
+                  <span className="font-semibold text-slate-300 min-w-20">Phone:</span>
+                  <a href="tel:6363532864" className="text-cyan-400 hover:text-cyan-300">
+                    6363532864
+                  </a>
+                </div>
+                <div className="flex items-start gap-3">
+                  <span className="font-semibold text-slate-300 min-w-20">Location:</span>
+                  <span className="text-slate-200">Karnataka 585105</span>
+                </div>
+              </div>
+            </div>
+            <Button 
+              onClick={() => setShowDemoModal(false)}
+              className="bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600"
+            >
+              Close
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* Contact Sales Modal */}
+      <Dialog open={showContactModal} onOpenChange={setShowContactModal}>
+        <DialogContent className="max-w-2xl bg-slate-900 border-slate-800">
+          <div className="flex flex-col items-center justify-center py-16 px-6">
+            <div className="mb-6">
+              <Phone className="w-24 h-24 text-blue-500 opacity-80" />
+            </div>
+            <h2 className="text-2xl font-bold text-white mb-4 text-center">Contact Our Sales Team</h2>
+            <p className="text-slate-300 text-center mb-8 text-lg">
+              Get in touch with us to discuss your requirements and discover how Traffic Ranger can transform your city.
+            </p>
+            <div className="bg-slate-800/50 rounded-lg p-8 mb-6 border border-slate-700 w-full">
+              <div className="space-y-6">
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <span className="text-white font-bold">👤</span>
+                  </div>
+                  <div>
+                    <p className="text-sm text-slate-400 font-semibold">Contact Person</p>
+                    <p className="text-white text-lg font-semibold">Amit Shetty</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <span className="text-white font-bold">📧</span>
+                  </div>
+                  <div>
+                    <p className="text-sm text-slate-400 font-semibold">Email</p>
+                    <a href="mailto:shatagaramit6@gmail.com" className="text-cyan-400 hover:text-cyan-300 text-lg font-semibold">
+                      shatagaramit6@gmail.com
+                    </a>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <span className="text-white font-bold">📱</span>
+                  </div>
+                  <div>
+                    <p className="text-sm text-slate-400 font-semibold">Phone</p>
+                    <a href="tel:6363532864" className="text-cyan-400 hover:text-cyan-300 text-lg font-semibold">
+                      6363532864
+                    </a>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <span className="text-white font-bold">📍</span>
+                  </div>
+                  <div>
+                    <p className="text-sm text-slate-400 font-semibold">Location</p>
+                    <p className="text-white text-lg font-semibold">Karnataka 585105</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="flex gap-3">
+              <Button 
+                onClick={() => setShowContactModal(false)}
+                className="bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600"
+              >
+                Close
+              </Button>
+              <Button 
+                onClick={() => window.location.href = 'mailto:shatagaramit6@gmail.com'}
+                variant="outline"
+                className="border-slate-600 text-slate-300 hover:bg-slate-800"
+              >
+                Send Email
+              </Button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   )
 }
